@@ -1,21 +1,24 @@
-// Replace this with your actual API key
+
 const API_KEY = "c086ac7723a11d257d9a35f55ca32060";
 
-// Get weather by city name
+// ✅ Default background on page load
+window.onload = () => {
+  document.body.style.background = "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover";
+};
+
+// 🔍 Fetch weather data
 async function getWeather() {
-  const city = document.getElementById("cityInput").value;
+  const city = document.getElementById("cityInput").value.trim();
   if (!city) return;
 
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`;
 
   try {
-    // Current weather data
     const weatherRes = await fetch(weatherUrl);
     const weatherData = await weatherRes.json();
     displayCurrentWeather(weatherData);
 
-    // Forecast data
     const forecastRes = await fetch(forecastUrl);
     const forecastData = await forecastRes.json();
     displayForecast(forecastData);
@@ -25,42 +28,65 @@ async function getWeather() {
   }
 }
 
-// Show current weather
+// 🌤️ Display current weather
 function displayCurrentWeather(data) {
   document.getElementById("cityName").textContent = data.name;
   document.getElementById("description").textContent = data.weather[0].description;
-  document.getElementById("temperature").textContent = `${Math.round(data.main.temp)}°C`;
+const celsius = Math.round(data.main.temp);
+const fahrenheit = Math.round((celsius * 9) / 5 + 32);
+
+document.getElementById("temperature").textContent = `${celsius}°C`;
+document.getElementById("fahrenheit").textContent = `${fahrenheit}°F`;
+
+const now = new Date();
+const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+
+
   document.getElementById("weatherIcon").src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-  document.getElementById("humidity").textContent = `Humidity: ${data.humidity}%`;
-document.getElementById("wind").textContent = `Wind: ${data.wind_speed} km/h`;
-document.getElementById("pressure").textContent = `Pressure: ${data.pressure} hPa`;
 
+  // ✅ Show humidity, wind, pressure
+  document.getElementById("humidity").textContent = `Humidity: ${data.main.humidity}%`;
+  document.getElementById("wind").textContent = `Wind: ${data.wind.speed} km/h`;
+  document.getElementById("pressure").textContent = `Pressure: ${data.main.pressure} hPa`;
 
-function updateBackground(weatherCondition) {
+  // 🎨 Update background image
+  setBackgroundImage(data.weather[0].description);
+}
+
+// 🖼️ Set background based on weather
+function setBackgroundImage(description) {
   const body = document.body;
-  body.className = ""; // Clear previous class
+  const weather = description.toLowerCase();
 
-  const condition = weatherCondition.toLowerCase();
+  body.className = ""; // Clear previous styles
 
-  if (condition.includes("clear")) body.classList.add("clear");
-  else if (condition.includes("cloud")) body.classList.add("clouds");
-  else if (condition.includes("rain")) body.classList.add("rain");
-  else if (condition.includes("snow")) body.classList.add("snow");
-  else if (condition.includes("thunderstorm")) body.classList.add("thunderstorm");
-  else if (condition.includes("mist") || condition.includes("fog")) body.classList.add("mist");
+  if (weather.includes("clear")) {
+    body.style.background = "url('images/clear.jpg') no-repeat center center/cover";
+  } else if (weather.includes("cloud")) {
+    body.style.background = "url('images/cloudy.jpg') no-repeat center center/cover";
+  } else if (weather.includes("rain")) {
+    body.style.background = "url('images/rain.jpg') no-repeat center center/cover";
+  } else if (weather.includes("snow")) {
+    body.style.background = "url('images/snow.jpg') no-repeat center center/cover";
+  } else if (weather.includes("thunder")) {
+    body.style.background = "url('images/thunder.jpg') no-repeat center center/cover";
+  } else if (weather.includes("mist") || weather.includes("fog") || weather.includes("haze")) {
+    body.style.background = "url('images/mist.jpg') no-repeat center center/cover";
+  } else {
+    // 🌄 Keep the original Unsplash image as fallback
+    body.style.background = "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover";
+  }
 }
 
 
-
-updateBackground(data.weather[0].main);
-
-}
-// Show 5-day forecast (next 5 days at 12PM)
+// 📆 Display 7-day forecast
 function displayForecast(data) {
   const forecastContainer = document.getElementById("forecastContainer");
   forecastContainer.innerHTML = "";
 
-  const filtered = data.list.filter(item => item.dt_txt.includes("12:00:00"));
+  // Filter 12 PM data entries for next 7 days
+  const filtered = data.list.filter(item => item.dt_txt.includes("12:00:00")).slice(0, 7);
+
   filtered.forEach(day => {
     const date = new Date(day.dt_txt).toDateString().slice(0, 10);
     const icon = day.weather[0].icon;
@@ -76,3 +102,14 @@ function displayForecast(data) {
     forecastContainer.appendChild(card);
   });
 }
+// ⏰ Update live clock
+setInterval(() => {
+  const now = new Date();
+  const options = {
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true
+  };
+  document.getElementById("clockDisplay").textContent = now.toLocaleTimeString("en-US", options);
+}, 1000);

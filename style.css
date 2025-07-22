@@ -1,125 +1,114 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
-
 body {
-  height: 100vh;
-  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.clear {
-  background-image: url('images/clear.jpg');
-}
-
-.clouds {
-  background-image: url('images/clouds.jpg');
-}
-
-.rain {
-  background-image: url('images/rain.jpg');
-}
-
-.snow {
-  background-image: url('images/snow.jpg');
-}
-
-.thunderstorm {
-  background-image: url('images/thunderstorm.jpg');
-}
-
-.mist {
-  background-image: url('images/mist.jpg');
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  color: #011118(0, 2, 2);
+  transition: background 0.5s ease;
+  
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .app {
-  width: 90%;
   max-width: 600px;
-  background: rgba(255, 255, 255, 0.15);
+  margin: 2rem auto;
+  padding: 2rem;
   border-radius: 20px;
-  padding: 20px;
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  color: white;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 .search-box {
   display: flex;
-  gap: 10px;
   justify-content: center;
-  margin-top: 10px;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 input[type="text"] {
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
-  outline: none;
+  font-size: 1rem;
   width: 70%;
 }
 
 button {
-  padding: 10px 15px;
-  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 1.1rem;
+  border-radius: 10px;
   border: none;
-  background-color: #ffffff90;
+  background: #ffffff88;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #ffffffb0;
 }
 
 .current {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .weather-info {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin-top: 10px;
+  gap: 1rem;
 }
 
 .forecast {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 10px;
-  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 1rem;
 }
 
-.forecast-day {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  backdrop-filter: blur(10px);
-}
 .extra-info {
-  margin-top: 10px;
-  padding: 10px 15px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  font-weight: 500;
-  color: white;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
 }
-.extra-info p {
-  margin: 5px 0;
+#clockDisplay {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  color: #042125;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+
+/* Background classes */
+body.clear {
+  background: url("https://images.unsplash.com/photo-1502082553048-f009c37129b9") no-repeat center center/cover;
+}
+
+body.clouds {
+  background: url("https://images.unsplash.com/photo-1499346030926-9a72daac6c63") no-repeat center center/cover;
+}
+
+body.rain {
+  background: url("https://images.unsplash.com/photo-1527766833261-b09c3163a791") no-repeat center center/cover;
+}
+
+body.thunderstorm {
+  background: url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d") no-repeat center center/cover;
+}
+
+body.snow {
+  background: url("https://images.unsplash.com/photo-1608889175118-7bd78bb54840") no-repeat center center/cover;
+}
+
+body.mist {
+  background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb") no-repeat center center/cover;
+}
+body {
+  background: url("https://images.unsplash.com/photo-1526318472351-bc6fdfcfff55") no-repeat center center/cover;
+  transition: background 1s ease-in-out;
 }

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Weather Dashboard 🌦️</title>
   <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
   <div class="app glass">
@@ -17,23 +18,30 @@
     </header>
 
     <main>
-        <div class="extra-info">
-  <p id="humidity">Humidity: --%</p>
-  <p id="wind">Wind: -- km/h</p>
-  <p id="pressure">Pressure: -- hPa</p>
-</div>
-
       <section class="current">
+        <div id="clockDisplay"></div>
+
         <h2 id="cityName">City Name</h2>
         <p id="description">Description</p>
-        <div class="weather-info">
-          <h1 id="temperature">--°C</h1>
-          <img id="weatherIcon" src="" alt="icon" />
+       <div class="weather-info">
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <h1 id="temperature">--°C</h1>
+    <h1 id="fahrenheit">--°F</h1>
+   
+  </div>
+  <img id="weatherIcon" src="" alt="icon" />
+</div>
+
+        <div class="extra-info">
+          <p id="humidity">Humidity: --%</p>
+          <p id="wind">Wind: -- km/h</p>
+          <p id="pressure">Pressure: -- hPa</p>
         </div>
       </section>
+      
 
       <section class="forecast" id="forecastContainer">
-        <!-- 7-day forecast cards added by JS -->
+        <!-- Forecast cards will appear here -->
       </section>
     </main>
   </div>
